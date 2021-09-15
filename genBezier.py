@@ -10,8 +10,7 @@ def lerp(x0, x1, t):
 def genBezierCurve(points, t):
     interPoints = list()
     for i, point in enumerate(points[:-1]):
-        temp = lerp(point, points[i + 1], t)
-        interPoints.append(temp)
+        interPoints.append(lerp(point, points[i + 1], t))
     if len(interPoints) != 1:
         return genBezierCurve(interPoints, t)
     else:
@@ -32,11 +31,22 @@ listOfPoints = [
 
 bezierCoords = genBezierCurve(listOfPoints, t)
 
+
+for i, point in enumerate(listOfPoints):
+    plt.plot(point[0], point[1],
+            'x',
+            color = 'sienna',
+            markersize = 10,
+            zorder = 4,
+            label = 'Points' if i == 0 else None
+            )
+
 # % 1. Vector:
 plt.plot(
             [listOfPoints[0][0], listOfPoints[1][0]], # x
             [listOfPoints[0][1], listOfPoints[1][1]], # y
             '-o',
+            linewidth = 1,
             color = 'goldenrod'
         )
 
@@ -46,6 +56,7 @@ plt.plot(
             [listOfPoints[-2][1], listOfPoints[-1][1]], # y
             '-o',
             color = 'goldenrod',
+            linewidth = 1,
             label = 'Support Vectors',
         )
 
